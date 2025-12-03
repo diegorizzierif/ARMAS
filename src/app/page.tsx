@@ -37,12 +37,16 @@ export default function Home() {
                   📋 Dados do Requerente
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <input
-                    type="text"
-                    id="input_cpf_requerente"
-                    placeholder="CPF do Requerente *"
-                    className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      id="input_cpf_requerente"
+                      placeholder="CPF do Requerente *"
+                      maxLength={14}
+                      className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    />
+                    <span id="cpf_error" className="hidden text-red-500 text-xs mt-1 absolute -bottom-5 left-0">CPF inválido</span>
+                  </div>
                   <input
                     type="text"
                     id="input_n_cr"
@@ -73,22 +77,27 @@ export default function Home() {
                     placeholder="Profissão"
                     className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      id="input_cep"
+                      placeholder="CEP *"
+                      maxLength={9}
+                      className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    />
+                    <span id="cep_loading" className="hidden text-blue-500 text-xs mt-1 absolute -bottom-5 left-0">Buscando endereço...</span>
+                    <span id="cep_error" className="hidden text-red-500 text-xs mt-1 absolute -bottom-5 left-0">CEP não encontrado</span>
+                  </div>
                   <input
                     type="text"
                     id="input_endereco"
                     placeholder="Endereço para Correspondência"
-                    className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all md:col-span-3"
+                    className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all md:col-span-2"
                   />
                   <input
                     type="text"
                     id="input_bairro"
                     placeholder="Bairro"
-                    className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                  />
-                  <input
-                    type="text"
-                    id="input_cep"
-                    placeholder="CEP"
                     className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   />
                   <input
@@ -163,12 +172,16 @@ export default function Home() {
                   👤 Dados do Alienante (Vendedor)
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <input
-                    type="text"
-                    id="input_cpf_alienante"
-                    placeholder="CPF do Alienante"
-                    className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      id="input_cpf_alienante"
+                      placeholder="CPF do Alienante"
+                      maxLength={14}
+                      className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                    />
+                    <span id="cpf_alienante_error" className="hidden text-red-500 text-xs mt-1 absolute -bottom-5 left-0">CPF inválido</span>
+                  </div>
                   <input
                     type="text"
                     id="input_n_cr_alienante"
@@ -286,16 +299,176 @@ export default function Home() {
                   <strong>⚠️ Instruções Importantes:</strong>
                 </p>
                 <ol className="text-sm text-amber-700 dark:text-amber-300 mt-2 space-y-1 list-decimal list-inside">
-                  <li>Coloque o arquivo <code className="bg-amber-100 dark:bg-amber-900 px-2 py-1 rounded">AUTOMATIZAR.pdf</code> na pasta <code className="bg-amber-100 dark:bg-amber-900 px-2 py-1 rounded">public/</code></li>
+                  <li>O arquivo <code className="bg-amber-100 dark:bg-amber-900 px-2 py-1 rounded">AUTOMATIZAR.pdf</code> deve estar na pasta <code className="bg-amber-100 dark:bg-amber-900 px-2 py-1 rounded">public/</code></li>
                   <li>O PDF deve ter campos de formulário criados previamente (Adobe Acrobat)</li>
                   <li>Ajuste os nomes dos campos no código conforme os nomes reais do seu PDF</li>
                   <li>Abra o console do navegador (F12) para ver os nomes dos campos disponíveis</li>
+                  <li>O CPF será validado automaticamente ao digitar</li>
+                  <li>O endereço será preenchido automaticamente ao digitar o CEP</li>
                 </ol>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Script de Validação e Busca de CEP */}
+      <Script id="validators" strategy="afterInteractive">
+        {`
+          // Função para validar CPF
+          function validarCPF(cpf) {
+            cpf = cpf.replace(/[^\\d]/g, '');
+            
+            if (cpf.length !== 11) return false;
+            if (/^(\\d)\\1{10}$/.test(cpf)) return false;
+            
+            let soma = 0;
+            let resto;
+            
+            for (let i = 1; i <= 9; i++) {
+              soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+            }
+            
+            resto = (soma * 10) % 11;
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpf.substring(9, 10))) return false;
+            
+            soma = 0;
+            for (let i = 1; i <= 10; i++) {
+              soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+            }
+            
+            resto = (soma * 10) % 11;
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpf.substring(10, 11))) return false;
+            
+            return true;
+          }
+          
+          // Função para formatar CPF
+          function formatarCPF(valor) {
+            valor = valor.replace(/\\D/g, '');
+            valor = valor.replace(/(\\d{3})(\\d)/, '$1.$2');
+            valor = valor.replace(/(\\d{3})(\\d)/, '$1.$2');
+            valor = valor.replace(/(\\d{3})(\\d{1,2})$/, '$1-$2');
+            return valor;
+          }
+          
+          // Função para formatar CEP
+          function formatarCEP(valor) {
+            valor = valor.replace(/\\D/g, '');
+            valor = valor.replace(/(\\d{5})(\\d)/, '$1-$2');
+            return valor;
+          }
+          
+          // Função para buscar endereço pelo CEP
+          async function buscarEnderecoPorCEP(cep) {
+            cep = cep.replace(/\\D/g, '');
+            
+            if (cep.length !== 8) return;
+            
+            const loadingEl = document.getElementById('cep_loading');
+            const errorEl = document.getElementById('cep_error');
+            
+            loadingEl.classList.remove('hidden');
+            errorEl.classList.add('hidden');
+            
+            try {
+              const response = await fetch(\`https://viacep.com.br/ws/\${cep}/json/\`);
+              const data = await response.json();
+              
+              if (data.erro) {
+                errorEl.classList.remove('hidden');
+                loadingEl.classList.add('hidden');
+                return;
+              }
+              
+              // Preencher campos automaticamente
+              if (data.logradouro) {
+                document.getElementById('input_endereco').value = data.logradouro;
+              }
+              if (data.bairro) {
+                document.getElementById('input_bairro').value = data.bairro;
+              }
+              if (data.localidade) {
+                document.getElementById('input_cidade').value = data.localidade;
+              }
+              if (data.uf) {
+                document.getElementById('input_estado').value = data.uf;
+              }
+              
+              loadingEl.classList.add('hidden');
+            } catch (error) {
+              console.error('Erro ao buscar CEP:', error);
+              errorEl.classList.remove('hidden');
+              loadingEl.classList.add('hidden');
+            }
+          }
+          
+          // Adicionar eventos aos campos de CPF
+          document.addEventListener('DOMContentLoaded', function() {
+            // CPF do Requerente
+            const cpfRequerenteInput = document.getElementById('input_cpf_requerente');
+            const cpfErrorEl = document.getElementById('cpf_error');
+            
+            cpfRequerenteInput.addEventListener('input', function(e) {
+              e.target.value = formatarCPF(e.target.value);
+            });
+            
+            cpfRequerenteInput.addEventListener('blur', function(e) {
+              const cpf = e.target.value.replace(/\\D/g, '');
+              if (cpf.length > 0) {
+                if (validarCPF(cpf)) {
+                  cpfErrorEl.classList.add('hidden');
+                  e.target.classList.remove('border-red-500');
+                  e.target.classList.add('border-green-500');
+                } else {
+                  cpfErrorEl.classList.remove('hidden');
+                  e.target.classList.add('border-red-500');
+                  e.target.classList.remove('border-green-500');
+                }
+              }
+            });
+            
+            // CPF do Alienante
+            const cpfAlienanteInput = document.getElementById('input_cpf_alienante');
+            const cpfAlienanteErrorEl = document.getElementById('cpf_alienante_error');
+            
+            cpfAlienanteInput.addEventListener('input', function(e) {
+              e.target.value = formatarCPF(e.target.value);
+            });
+            
+            cpfAlienanteInput.addEventListener('blur', function(e) {
+              const cpf = e.target.value.replace(/\\D/g, '');
+              if (cpf.length > 0) {
+                if (validarCPF(cpf)) {
+                  cpfAlienanteErrorEl.classList.add('hidden');
+                  e.target.classList.remove('border-red-500');
+                  e.target.classList.add('border-green-500');
+                } else {
+                  cpfAlienanteErrorEl.classList.remove('hidden');
+                  e.target.classList.add('border-red-500');
+                  e.target.classList.remove('border-green-500');
+                }
+              }
+            });
+            
+            // CEP
+            const cepInput = document.getElementById('input_cep');
+            
+            cepInput.addEventListener('input', function(e) {
+              e.target.value = formatarCEP(e.target.value);
+            });
+            
+            cepInput.addEventListener('blur', function(e) {
+              const cep = e.target.value.replace(/\\D/g, '');
+              if (cep.length === 8) {
+                buscarEnderecoPorCEP(cep);
+              }
+            });
+          });
+        `}
+      </Script>
 
       {/* Script de Geração do PDF */}
       <Script id="pdf-generator" strategy="afterInteractive">
@@ -350,9 +523,16 @@ export default function Home() {
                 alert("⚠️ Preencha ao menos o NOME e o CPF do Requerente.");
                 return;
               }
+              
+              // Validar CPF antes de gerar
+              const cpfLimpo = dados.cpfRequerente.replace(/\\D/g, '');
+              if (!validarCPF(cpfLimpo)) {
+                alert("⚠️ CPF do Requerente inválido. Por favor, corrija antes de gerar o PDF.");
+                return;
+              }
 
-              // 2. Carregar o PDF Padrão
-              const resposta = await fetch('/AUTOMATIZAR.pdf');
+              // 2. Carregar o PDF Padrão (arquivos em public/ são acessados pela raiz)
+              const resposta = await fetch('/AUTOMATIZAR .pdf');
               if (!resposta.ok) {
                 throw new Error('PDF não encontrado. Certifique-se de que o arquivo AUTOMATIZAR.pdf está na pasta public/');
               }
